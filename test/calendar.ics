@@ -1,0 +1,149 @@
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+PRODID:Microsoft Exchange Server 2010
+VERSION:2.0
+X-WR-CALNAME:Calendar
+BEGIN:VTIMEZONE
+TZID:W. Europe Standard Time
+BEGIN:STANDARD
+DTSTART:16010101T030000
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010101T020000
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:16010101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010101T000000
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DESCRIPTION:https://edh.cern.ch/Document/LeaveRequest/6247772\n\nThis appoi
+ ntment has been generated automatically by EDH. Please note that if the co
+ rresponding Leave Request document is canceled\, this appointment will be 
+ deleted and any changes that you may have made to this appointment will be
+  lost.\n\nCe rendez-vous vient d'etre genere automatiquement par EDH. Veui
+ llez noter que si la demande de conge correspondante est annulee\, ce rend
+ ez-vous sera supprime et tous changements que vous auriez apportes seront 
+ perdus.\n
+SUMMARY:Home Leave
+DTSTART;TZID=W. Europe Standard Time:20160104T083000
+DTEND;TZID=W. Europe Standard Time:20160106T173000
+UID:040000008200E00074C5B7101A82E008000000004C441C05D246D101000000000000000
+ 0100000004BE15C46F02FA14BBB9F0CF61A60F064
+CLASS:PUBLIC
+PRIORITY:5
+DTSTAMP:20160107T185537Z
+TRANSP:OPAQUE
+STATUS:CONFIRMED
+SEQUENCE:0
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:OOF
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:https://edh.cern.ch/Document/LeaveRequest/6254301\n\n13-15 Jan 
+ - LHCb team retreat to Les Houches 1-3 Feb - WLCG Workshop Lisbon\n\nThis 
+ appointment has been generated automatically by EDH. Please note that if t
+ he corresponding Leave Request document is canceled\, this appointment wil
+ l be deleted and any changes that you may have made to this appointment wi
+ ll be lost.\n\nCe rendez-vous vient d'etre genere automatiquement par EDH.
+  Veuillez noter que si la demande de conge correspondante est annulee\, ce
+  rendez-vous sera supprime et tous changements que vous auriez apportes se
+ ront perdus.\n
+SUMMARY:Official trip (conference\, etc.)
+DTSTART;TZID=W. Europe Standard Time:20160113T083000
+DTEND;TZID=W. Europe Standard Time:20160115T173000
+UID:040000008200E00074C5B7101A82E008000000005B6A53434E49D101000000000000000
+ 0100000002BBEFC2C93E79B47BEFC035F4C1CD2C7
+CLASS:PUBLIC
+PRIORITY:5
+DTSTAMP:20160107T185537Z
+TRANSP:OPAQUE
+STATUS:CONFIRMED
+SEQUENCE:0
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:OOF
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:https://indico.cern.ch/e/448697\n\n\nThe members of the CERN LH
+ Cb-Team will meet to review their scientific activities. The recent result
+ s as well as the planning for the future operation and upgrade of the LHCb
+  experiment shall be discussed in particular with the young postdocs\, in 
+ order to identify areas where additional effort would be most welcome. The
+  retreat shall reinforce cooperation and mutual understanding among all me
+ mbers of the team.\n\nLes Houches\n\nhttp://houches.ujf-grenoble.fr/\n\n\n
+ \n[https://indico.cern.ch/event/325917/picture/0.png]\n\n\n
+SUMMARY:LHCb-CERN-Team Retreat
+DTSTART;TZID=UTC:20160113T092500
+DTEND;TZID=UTC:20160115T150000
+UID:040000008200E00074C5B7101A82E00800000000D1D765095EFCD001000000000000000
+ 0100000009285FC8F0BA771479280A27C65ACFA99
+CLASS:PUBLIC
+PRIORITY:5
+DTSTAMP:20160107T185537Z
+TRANSP:OPAQUE
+STATUS:CONFIRMED
+SEQUENCE:0
+LOCATION:
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:FREE
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:https://edh.cern.ch/Document/LeaveRequest/6254301\n\n13-15 Jan 
+ - LHCb team retreat to Les Houches 1-3 Feb - WLCG Workshop Lisbon\n\nThis 
+ appointment has been generated automatically by EDH. Please note that if t
+ he corresponding Leave Request document is canceled\, this appointment wil
+ l be deleted and any changes that you may have made to this appointment wi
+ ll be lost.\n\nCe rendez-vous vient d'etre genere automatiquement par EDH.
+  Veuillez noter que si la demande de conge correspondante est annulee\, ce
+  rendez-vous sera supprime et tous changements que vous auriez apportes se
+ ront perdus.\n
+SUMMARY:Official trip (conference\, etc.)
+DTSTART;TZID=W. Europe Standard Time:20160201T083000
+DTEND;TZID=W. Europe Standard Time:20160203T173000
+UID:040000008200E00074C5B7101A82E00800000000A057FB424E49D101000000000000000
+ 01000000047E4BEC8255CBE43BFCB922C684676E8
+CLASS:PUBLIC
+PRIORITY:5
+DTSTAMP:20160107T185537Z
+TRANSP:OPAQUE
+STATUS:CONFIRMED
+SEQUENCE:0
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:OOF
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-ALLDAYEVENT:FALSE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+END:VEVENT
+END:VCALENDAR

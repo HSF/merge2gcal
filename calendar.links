@@ -1,0 +1,36 @@
+# (c) Copyright 2015-2020 CERN
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Author: Stefan Roiser (stefan.roiser@cern.ch
+
+# HSF
+https://indico.cern.ch/export/categ/7970.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=e500551e536da2d06f518c1d9948eb4e7f123807 # MND # 10 # HSF weekly
+https://indico.cern.ch/export/categ/7971.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=8033305d1f1cafd28c118d2bda3beac03d0a6ac1 # OPT # 10 # HSF events
+https://indico.cern.ch/export/categ/8460.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=3e75fcc07617297ee0bbe8d737621fabe4f1bc63 # OPT # 10 # HSF Event Generators WG
+https://indico.cern.ch/export/categ/10914.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=073d185444e1fb4c8d884c5dd1de4ff5bab16e06 # OPT # 10 # HSF Data Analysis WG
+https://indico.cern.ch/export/categ/10916.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=b32c50517fc7b652664f7f53565dfc8c8dc5b674 # OPT # 10 # HSF Simulation WG
+https://indico.cern.ch/export/categ/8999.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=6a60249d93c99320d06d5890d2d471807cf19a18 # OPT # 10 # HSF Licensing WG
+https://indico.cern.ch/export/categ/10917.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=90de6d0e66aa21a881e654a45a80fb930f3240e9 # OPT # 10 # HSF Reco/Trigger WG
+https://indico.cern.ch/export/categ/10294.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=28bec1b56de19c89a4669736899f7876a0b2ced5 # OPT # 10 # HSF Training/Careers WG
+https://indico.cern.ch/export/categ/10420.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=84c6dd146f286a424fa2d55ecc08c69c574b38d5 # OPT # 10 # HSF Conditions WG
+https://indico.cern.ch/export/categ/10692.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=849d125958662da3df2a3f0fd93d94634c0c6c9c # OPT # 10 # HSF Coordination
+https://indico.cern.ch/export/categ/10287.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=b57117593a02be37aa2b8488a14034af0967722e # OPT # 10 # HSF Frameworks WG 
+https://indico.cern.ch/export/categ/8009.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=b012801ce19de4487fec9c8915113b424bc5f969 # OPT # 10 # Machine Learning WG
+https://indico.cern.ch/export/categ/7975.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=f1ff5924f4f1d04d72e8f2f8455f8ad9955b1f71 # OPT # 10 # HSF Packaging WG
+https://indico.cern.ch/export/categ/10415.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=362ede2d64fd38e5da7cc673d476e699e799d331 # OPT # 10 # HSF SW Devel Tools WG
+https://indico.cern.ch/export/categ/7976.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=8cb22ef2a2b6d958e552de264124135f5e517969 # OPT # 10 # HSF SW Tech Forum
+https://indico.cern.ch/export/categ/9047.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=05b0f8d46f5d76f73be488e827f30637362944b0 # OPT # 10 # HSF CWP
+https://indico.cern.ch/export/categ/11461.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=bf969dc9bb5d5578453b2dba5ba28cbe1cdbd993 # OPT # 10 # HSF Key4Hep
+https://indico.cern.ch/export/categ/11489.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=e7a5aac600ae82efd86d15be35a2e6b7ebcf8922 # OPT # 10 # HSF Event Delivery
+https://indico.cern.ch/export/categ/11412.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=c690f6053a260ee65b461ea2da2cda38ed8b2dac # OPT # 10 # HSF PyHEP WG
