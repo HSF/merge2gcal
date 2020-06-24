@@ -18,21 +18,20 @@
 
 import json
 import httplib2
-import tempfile
 import pycal
-import urllib
+import urllib.request
+import urllib.parse
+import urllib.error
 import time
 import platform
 import sys
 import os
-# import pytz
-import ssl
 from oauth2client.client import OAuth2Credentials
 from apiclient.discovery import build
 from datetime import datetime, timedelta
-from md5 import md5
+from hashlib import md5
 from optparse import OptionParser
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 # TODO
 # - check moved events from all to wrk and "rename" - currently just delete
@@ -51,30 +50,30 @@ class Calmerge:
         self.log('ERROR', msg)
 
     def log(self, lvl, msg):
-        print sys.stdout.write('%s %s %s' % (sys.argv[0], lvl, msg))
+        print(sys.stdout.write('%s %s %s' % (sys.argv[0], lvl, msg)))
 
     def __init__(self, clean=False, cfg=None, tst=None):
         self.clean = clean
         self.indicotimeformat = '%Y%m%dT%H%M%SZ'
 
-        # self.cfg_file = cfg
-        # if not self.cfg_file:
-        #     self.cfg_file = 'calendar.cfg'
-        # if not os.path.isfile(self.cfg_file):
-        #     self.log_error('cannot find config file %s' % self.cfg_file)
-        #     sys.exit(1)
+        self.cfg_file = cfg
+        if not self.cfg_file:
+            self.cfg_file = 'calendar.cfg'
+        if not os.path.isfile(self.cfg_file):
+            self.log_error('cannot find config file %s' % self.cfg_file)
+            sys.exit(1)
 
-        # self.tst_file = tst
+        self.tst_file = tst
 
-        # f = open(self.cfg_file)
-        # cfg = ConfigParser()
-        # try:
-        #     cfg.readfp(f)
-        # except Exception, e:
-        #     self.log_error(
-        #         'problem while processing config file %s, %s' % (self.cfg_file,
-        #                                                          e))
-        # f.close()
+        f = open(self.cfg_file)
+        cfg = ConfigParser()
+        try:
+            cfg.read_file(f)
+        except Exception as e:
+            self.log_error(
+                'problem while processing config file %s, %s' % (self.cfg_file,
+                                                                 e))
+        f.close()
 
         f = open('calsecret.json')
         # self.calsecret = json.loads(f.read())
@@ -87,7 +86,7 @@ class Calmerge:
             self.calendarlinks = f.readlines()
             f.close()
         except e:  # NoOptionError:
-            print
+            print()
 
         self.calcache = {}
         f = open('calcache.json')
@@ -96,8 +95,8 @@ class Calmerge:
 
         # alphabetically ordered
         self.calexts = ['all2', 'vrk2']
-        self.calendarids = {'all2': {'id': '<26alnums>@group.calendar.google.com'},  # noqa: E501
-                            'vrk2': {'id': '<26alnums>@group.calendar.google.com'}   # noqa: E501
+        self.calendarids = {'all2': {'id': 'mh9up33b8s0m8ba6i4m3sanb08@group.calendar.google.com'},  # noqa: E501
+                            'vrk2': {'id': 'jd5bdhh5eq2sigqtvg6q3l8el8@group.calendar.google.com'}   # noqa: E501
                             }
 
         self.calevtslist = []
@@ -110,7 +109,7 @@ class Calmerge:
 
         f = open('calendar-filter.json')
         self.filter = json.loads(
-            ''.join(filter(lambda x: x[0] != '#', f.readlines())))
+            ''.join([x for x in f.readlines() if x[0] != '#']))
         f.close()
 
     def generateEvent(self, evt, reminders):
@@ -122,7 +121,7 @@ class Calmerge:
                   'DTEND;VALUE=DATE-TIME': None,
                   'URL': None
                   }
-        for k in values.keys():
+        for k in list(values.keys()):
             v = evt[k]
             kl = k.split(';')
             if len(kl) == 2:
@@ -131,8 +130,8 @@ class Calmerge:
             if v:
                 values[k] = v
             else:
-                print 'Cannot find key %s in event %s (%s)' % (
-                    k, evt.get('SUMMARY'), evt.get('URL'))
+                print('Cannot find key %s in event %s (%s)' % (
+                    k, evt.get('SUMMARY'), evt.get('URL')))
         params = {
             'id': values['UID'],
             'summary': values['SUMMARY'],
@@ -178,7 +177,7 @@ class Calmerge:
         self.calevts = calsvc.events()
         mindate = (self.midnight - timedelta(31)).isoformat() + 'Z'
 
-        for k in self.calendarids.keys():
+        for k in list(self.calendarids.keys()):
             req = self.calevts.list(calendarId=self.calendarids[k]['id'],
                                     singleEvents=True, maxResults=2500,
                                     timeMin=mindate)
@@ -201,22 +200,22 @@ class Calmerge:
             # self.calevtslistids[k] = [ x['iCalUID'].split('@')[0]
             # for x in calevtsdict['items'] ]
             self.calevtslistids[k] = [x['id'] for x in calevtsdict['items']]
-            print 'Google calendar %s items: %d' % (k,
-                                                    len(self.calevtslistids[k]))
+            print('Google calendar %s items: %d' % (k,
+                                                    len(self.calevtslistids[k])))
             # print self.calevtslistids[k]
         # print self.calevtslistids
 
     def cleanAllEvents(self):
-        for k in self.calevtslistids.keys():
+        for k in list(self.calevtslistids.keys()):
             calid = self.calendarids[k]['id']
             for evtid in self.calevtslistids[k]:
                 time.sleep(.2)
-                print "try to clean event", evtid
+                print("try to clean event", evtid)
                 try:
                     req = self.calevts.delete(calendarId=calid, eventId=evtid)
                     req.execute()
-                except Exception, e:
-                    print 'Delete did not work because of', e
+                except Exception as e:
+                    print('Delete did not work because of', e)
 
     def filterEvent(self, cat, event):
         if cat in self.filter:
@@ -227,7 +226,7 @@ class Calmerge:
         return False
 
     def calIdTranslate(self, id):
-        return id.translate(None, '-@.')
+        return id.translate(str.maketrans('', '', '-@.'))
 
     def publishEvents(self, indicoevts, cat, rems):
         ret = [0, 0]  # total, new events
@@ -271,13 +270,13 @@ class Calmerge:
                 calendarId=calid, eventId=evtid, body=params)
             try:
                 req.execute()
-            except Exception, e:
-                print 'update except', e
+            except Exception as e:
+                print('update except', e)
         else:
             req = self.calevts.insert(calendarId=calid, body=params)
             try:
                 req.execute()
-            except Exception, e:
+            except Exception as e:
                 je = json.loads(e.content)
                 if je['error']['code'] == 409:
                     req = self.calevts.get(calendarId=calid, eventId=evtid)
@@ -288,12 +287,8 @@ class Calmerge:
                     req.execute()
 
     def downloadics(self, url):
-        tmpfile = tempfile.NamedTemporaryFile()
-        # FIXME: This bypasses the SSL authentication of indico
-        gcontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        urllib.urlretrieve(url, tmpfile.name, context=gcontext)
-        icsdict = pycal.parse(tmpfile.name)
-        tmpfile.close()
+        urld = urllib.request.urlopen(url)
+        icsdict = pycal.parse(urld.read().decode('utf-8').split('\r\n'))
         ks = ['DTSTAMP;VALUE=DATE-TIME']
         if 'events' in icsdict:
             for e in icsdict['events']:
@@ -310,26 +305,26 @@ class Calmerge:
     def delEvents(self):
         sumdelevts = len(self.caldelevts)
         if sumdelevts:
-            print len(self.caldelevts), "events to delete:"
+            print(len(self.caldelevts), "events to delete:")
             reallydelete = True
             if sumdelevts > 100:
                 # some safety net to not delete in case of mistake
                 reallydelete = False
-                print 'More than 10 events to delete, dry run', sumdelevts
+                print('More than 10 events to delete, dry run', sumdelevts)
             for evt in self.calevtslist:
                 for delevt in self.caldelevts:
                     if delevt == evt['id']:
-                        print 'event:', evt
+                        print('event:', evt)
                         if reallydelete:
                             try:
-                                print 'deleting event'
+                                print('deleting event')
                                 req = self.calevts.delete(
                                     calendarId=self.calendarids[delevt[-4:]]
                                                                ['id'],
                                     eventId=delevt)
                                 req.execute()
-                            except Exception, e:
-                                print "Delete did not work because of", e
+                            except Exception as e:
+                                print("Delete did not work because of", e)
 
     def run(self):
         self.prePublish()
@@ -341,8 +336,7 @@ class Calmerge:
             if len(lline[0].strip()):
                 stats['sumCals'] += 1
                 name = lline[-1].strip()
-                rems = [int(x) for x in map(
-                    lambda x: x, lline[-2].split(',')) if len(x.strip())]
+                rems = [int(x) for x in [x for x in lline[-2].split(',')] if len(x.strip())]
                 url = lline[0].strip()
                 sys.stdout.write(name)
                 ics = self.downloadics(url)
@@ -350,7 +344,7 @@ class Calmerge:
                     sys.stdout.write(', no events')
                     # sys.stdout.write(str(ics))
                 cat = url.split('/')[-1].split('.')[0]
-                calhash = md5(str(ics)).hexdigest()
+                calhash = md5(str(ics).encode('utf-8')).hexdigest()
                 if self.calcache.get(cat) != calhash:
                     self.calcache[cat] = calhash
                     ret = self.publishEvents(ics, cat, rems)
@@ -358,7 +352,7 @@ class Calmerge:
                     stats['newEvts'] += ret[1]
                 else:
                     sys.stdout.write(', cached')
-                print
+                print()
 
         self.delEvents()
 
@@ -393,7 +387,7 @@ def notify(title, subtitle, info_text, delay=0, sound=False, userinfo={}):
                                                              date()))
         nsusernotificationcenter.defaultUserNotificationCenter(
         ).scheduleNotification_(ntf)
-    print '%s\n%s\n%s' % (title, subtitle, info_text)
+    print('%s\n%s\n%s' % (title, subtitle, info_text))
 
 
 if __name__ == '__main__':
@@ -407,15 +401,18 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if args:
-        print sys.argv[0], "- no arguments allowed"
+        print(sys.argv[0], "- no arguments allowed")
         parser.print_usage()
 
     # calmerge().run()
+
+    # Calmerge(clean=False, cfg=options.config_file,
+    #          tst=options.test_input).run()
 
     try:
         notify('Calendar Merge', '', Calmerge(clean=False,
                                               cfg=options.config_file,
                                               tst=options.test_input).run())
-    except Exception, e:
-        print e
-#        notify('Calendar Merge', 'Exception', e)
+    except Exception as e:
+        print(e)
+        notify('Calendar Merge', 'Exception', e)

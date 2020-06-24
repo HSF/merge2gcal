@@ -14,45 +14,60 @@
 #
 # Author: Stefan Roiser (stefan.roiser@cern.ch)
 
-class pycal :
+class pycal:
 
-   def __init__(self):
-     self.file = None
-     self.dict = {'events':[]}
+    def __init__(self):
+        self.file = None
+        self.dict = {'events': []}
 
-   def parse(self,file):
-     self.file = file
-     fh = open(self.file)
-     insideevt = False
-     evtdict = {}
-     for l in fh.readlines() :
-       l = l.translate(None,'\r\n')
-       l = l.replace('\,',',').replace('\\n',' ')
-       if l[0] == ' ' :
-          evtdict[k] = evtdict[k] + l[1:]
-       else :
-         ll = l.split(':')
-         if len(ll) < 2 : print "error"
-         else :
-           k = ll[0]
-           v = ':'.join(ll[1:])
-           if insideevt :
-             if k == 'END' and v == 'VEVENT' :
-               self.dict['events'].append(evtdict)
-               evtdict = {}
-               insideevt = False
-             else :
-               evtdict[k] = v
-           elif k == 'BEGIN' and v == 'VEVENT' :
-             insideevt = True
-           elif k == 'END' and v == 'VCALENDAR' :
-             break
-           else :
-             self.dict[k] = v
+    def parsefile(self, file):
+        self.file = file
+        fh = open(self.file)
+        lst = []
+        strtrans = str.maketrans('', '', '\r\n')
+        for l in fh.readlines():
+            l = l.translate(strtrans)
+            l = l.replace('\,', ',')
+            l = l.replace('\\n', ' ')
+            lst.append(l)
+        fh.close()
+        return self.parse(lst)
 
-     fh.close()
-     return self.dict
+    def parse(self, lst):
+        insideevt = False
+        evtdict = {}
+        for l in lst:
+            # l = l.translate(None, '\r\n')
+            # l = l.replace('\,', ',')
+            # l = l.replace('\\n', ' ')
+            if l[0] == ' ':
+                evtdict[k] = evtdict[k] + l[1:]
+            else:
+                ll = l.split(':')
+                if len(ll) < 2:
+                    print("error")
+                else:
+                    k = ll[0]
+                    v = ':'.join(ll[1:])
+                    if insideevt:
+                        if k == 'END' and v == 'VEVENT':
+                            self.dict['events'].append(evtdict)
+                            evtdict = {}
+                            insideevt = False
+                        else:
+                            evtdict[k] = v
+                    elif k == 'BEGIN' and v == 'VEVENT':
+                        insideevt = True
+                    elif k == 'END' and v == 'VCALENDAR':
+                        break
+                    else:
+                        self.dict[k] = v
+
+        return self.dict
 
 
-def parse(file) :
-   return pycal().parse(file)
+def parsefile(file):
+    return pycal().parsefile(file)
+
+def parse(lst):
+    return pycal().parse(lst)
