@@ -1,6 +1,6 @@
 # Merge2Cal
 
-The merge2cal script collects information from indico agendas (e.g. https://indico.cern.ch/) and merges them into a single google calendar. The script is written in Python2 (to be moved to 3). 
+The merge2cal script collects information from indico agendas (e.g. https://indico.cern.ch/) and merges them into a single google calendar. The script is written in Python3 
 
 ## What it does
 
@@ -71,7 +71,6 @@ A few ideas for the script which have not or only partly been implemented
 - use a proper configuration file for setup (file and reading of it exists but is not used)
 - use a filtering mechanism, e.g. ignore events in a category which contain string "XYZ" (partly works)
 - use other sources to retrieve event data. For the moment only indico is supported (via module pycal in the local directory)
-- move the script to python 3 ...
 
 ## Getting Started
 
