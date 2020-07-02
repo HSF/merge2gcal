@@ -24,18 +24,18 @@ flow = flow_from_clientsecrets(os.path.realpath(os.curdir)+os.sep+'client_secret
 uri = flow.step1_get_authorize_url()
 
 
-print "Call this URL in a browser"
-print uri
+print("Call this URL in a browser")
+print(uri)
 
-print
-print "Then input the 'code' in the return path here :"
+print()
+print("Then input the 'code' in the return path here :")
 
 code = sys.stdin.readline()[:-1]
 
 cred = flow.step2_exchange(code)
 
-print "The credentials are: "
-print
+print("The credentials are: ")
+print()
 
-print cred.to_json()
+print(cred.to_json())
 
