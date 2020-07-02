@@ -18,7 +18,7 @@
 
 import json
 import httplib2
-import pycal
+import icalendar
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -54,7 +54,6 @@ class Calmerge:
 
     def __init__(self, clean=False, cfg=None, tst=None):
         self.clean = clean
-        self.indicotimeformat = '%Y%m%dT%H%M%SZ'
 
         self.cfg_file = cfg
         if not self.cfg_file:
@@ -113,44 +112,25 @@ class Calmerge:
         f.close()
 
     def generateEvent(self, evt, reminders):
-        values = {'UID': None,
-                  'SUMMARY': None,
-                  'DESCRIPTION': None,
-                  'LOCATION': None,
-                  'DTSTART;VALUE=DATE-TIME': None,
-                  'DTEND;VALUE=DATE-TIME': None,
-                  'URL': None
-                  }
-        for k in list(values.keys()):
-            v = evt[k]
-            kl = k.split(';')
-            if len(kl) == 2:
-                if kl[1] == 'VALUE=DATE-TIME':
-                    v = datetime.strptime(v, self.indicotimeformat)
-            if v:
-                values[k] = v
-            else:
-                print('Cannot find key %s in event %s (%s)' % (
-                    k, evt.get('SUMMARY'), evt.get('URL')))
         params = {
-            'id': values['UID'],
-            'summary': values['SUMMARY'],
-            'description': 'Event URL: %s\n\n%s' % (values['URL'],
-                                                    values['DESCRIPTION']),
-            'location': values['LOCATION'],
+            'id': evt['UID'],
+            'summary': evt['SUMMARY'],
+            'description': 'Event URL: %s\n\n%s' % (evt['URL'],
+                                                    evt['DESCRIPTION']),
+            'location': evt['LOCATION'],
             'start': {'timeZone': 'UTC'},
             'end': {'timeZone': 'UTC'},
             'source': {
                 'title': 'Indico URL',
-                'url': values['URL']
+                'url': evt['URL']
             }
         }
-        start = values['DTSTART;VALUE=DATE-TIME']
-        end = values['DTEND;VALUE=DATE-TIME']
+        start = evt['DTSTART']
+        end = evt['DTEND']
         if start.year == end.year and start.month == end.month and\
            start.day == end.day:
-            params['start']['dateTime'] = start.isoformat() + 'Z'
-            params['end']['dateTime'] = end.isoformat() + 'Z'
+            params['start']['dateTime'] = start.isoformat()
+            params['end']['dateTime'] = end.isoformat()
         else:
             params['description'] = 'Event from %s to %s\n\n%s' % (
                 start, end, params['description'])
@@ -230,7 +210,7 @@ class Calmerge:
 
     def publishEvents(self, indicoevts, cat, rems):
         ret = [0, 0]  # total, new events
-        for event in indicoevts.get('events'):
+        for event in indicoevts:
             ret[0] += 1
             evtinf = self.generateEvent(event, rems)
             evtid = self.calIdTranslate(evtinf['id'])
@@ -288,19 +268,20 @@ class Calmerge:
 
     def downloadics(self, url):
         urld = urllib.request.urlopen(url)
-        icsdict = pycal.parse(urld.read().decode('utf-8').split('\r\n'))
-        ks = ['DTSTAMP;VALUE=DATE-TIME']
-        if 'events' in icsdict:
-            for e in icsdict['events']:
-                for k in ks:
-                    if k in e:
-                        del e[k]
-                idt = self.calIdTranslate(e.get('UID'))
+        ics = icalendar.Calendar.from_ical(urld.read())
+        events = []
+        for component in ics.walk():
+            if component.name == "VEVENT":
+                event = {key:component.get(key, None) for key in ['UID', 'SUMMARY', 'DESCRIPTION', 'LOCATION',
+                                                                  'URL']}
+                event.update({key:component.decoded(key) for key in ['DTSTART', 'DTEND']})
+                events.append(event)
+                idt = self.calIdTranslate(component.get('UID'))
                 for ext in self.calexts:
                     idtext = idt + ext
                     if idtext in self.caldelevts:
                         self.caldelevts.remove(idt + ext)
-        return icsdict
+        return events
 
     def delEvents(self):
         sumdelevts = len(self.caldelevts)
@@ -340,7 +321,7 @@ class Calmerge:
                 url = lline[0].strip()
                 sys.stdout.write(name)
                 ics = self.downloadics(url)
-                if len(ics.get('events')) == 0:
+                if len(ics) == 0:
                     sys.stdout.write(', no events')
                     # sys.stdout.write(str(ics))
                 cat = url.split('/')[-1].split('.')[0]
