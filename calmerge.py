@@ -36,7 +36,6 @@ from configparser import ConfigParser
 # TODO
 # - check moved events from all to wrk and "rename" - currently just delete
 #   "all" event to regenerate wrk one
-# - use icalendar module instead of self-woven parser for ics files
 
 # HOWTO
 # turn off the "all" calendar from sync'ing
