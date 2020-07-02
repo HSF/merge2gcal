@@ -78,14 +78,18 @@ A few ideas for the script which have not or only partly been implemented
 
 #### Authenticate against your Google calendar
 
-In order to write to a google calendar you need to setup oauth2 authentication. You can use the script in <home>/oauth2 to do so. 
+In order to write to a google calendar you need to setup oauth2 authentication. You can use the script in <home>/oauth2 to do so.
 
 1. Download the initial google credentials
-  - Go to the [Google API console](https://console.developers.google.com/) and click "Credentials" (left pane)
+  - Go to the [Google API console](https://console.developers.google.com/)
+  - If you haven't done so you need to create a project first.
+  - Enable the Calendar api in your project by clicking "Enable APIs and services" in the top of the dashboard. Search for "Google Calendar API" and enable it.
+  - Make sure you have a OAuth consent screen configured by clicking the "OAuth consent screen" in the left pane. You need to add the scope "../auth/calendar.events". Google will warn you that this will require verification but you can just click "Save" and not submit it for verification and use it in development mode.
+  - click "Credentials" on the left pane.
   - On the new page clicke "Create Credentials" (top) and select "Oauth client ID"
   - In the drop down menu select "Desktop app" and give it some name and "Create"
-  - You are now back to the previous page. Under the "OAuth 2.0 Client IDs" go to the line of your app and download the corresponding file (most right). The file should have a name "client_secret_<userid>-<looongstring>.apps.googleusercontent.com.json" and look like 
-  
+  - You are now back to the previous page. Under the "OAuth 2.0 Client IDs" go to the line of your app and download the corresponding file (most right). The file should have a name "client_secret_<userid>-<looongstring>.apps.googleusercontent.com.json" and look like
+
   ```
   {"installed":{"client_id":"<removed>.apps.googleusercontent.com","project_id":"api-project-<removed>","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"<removed>","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}
   ```
