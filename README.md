@@ -1,6 +1,6 @@
 # Merge2Cal
 
-The merge2cal script collects information from indico agendas (e.g. https://indico.cern.ch/) and merges them into a single google calendar. The script is written in Python3 
+The merge2cal script collects information from indico agendas (e.g. https://indico.cern.ch/) and merges them into a single google calendar. The script is written in Python3
 
 ## What it does
 
@@ -8,29 +8,29 @@ The script (calmerge.py) will crawl through event resources (eg. indico agendas)
 
   - When subscribing to an indico agenda the corresponding events can be imported into a calendar tool but the subscribed calendar is note editable (e.g. an agenda contains various different events and one wants to remove some from the local calendar to not get cluttered)
   - The possibility to edit individual events before writing them into the google calendar (e.g. set different reminder times, add info in the text field, etc)
-  - Subscribing to many individual calendars can make the local calendar tool unmanagable or slow 
+  - Subscribing to many individual calendars can make the local calendar tool unmanageable or slow
 
 ## How it works
 
 Once setup and calling calmerge.py the script will
 
-1. Collect all events from the resources listed in the ```calendar.links``` file 
+1. Collect all events from the resources listed in the ```calendar.links``` file
 2. For each calendar entry compute a checksum and compare with the one in the ```calendar.cache``` file
    - if the checksum is the same (no changes) skip over the entry
-   - otherwise compare the downloaded entries with the local ones and apply changes if needed. Those are 
+   - otherwise compare the downloaded entries with the local ones and apply changes if needed. Those are
      - add new entries
      - remove entries that don't exist anymore
      - if any part of an entry has changed, overwrite it with the new info
-  
-The entries in the local calendar can be deleted (e.g. to not clutter the local calendar) and will not be re-entered with a new run of the script. 
+
+The entries in the local calendar can be deleted (e.g. to not clutter the local calendar) and will not be re-entered with a new run of the script.
 
 ## How to add new resource entries
 
-The file ```calendar.links``` contains all the resources (one per line) which the script will go through and collect information from. 
+The file ```calendar.links``` contains all the resources (one per line) which the script will go through and collect information from.
 
-Lines starting with # will be ignored. 
+Lines starting with # will be ignored.
 
-A typical entry in the file looks like 
+A typical entry in the file looks like
 
 ```
 https://indico.cern.ch/export/categ/7970.ics?apikey=7ebebcbb-e2f9-468b-92ba-6d94ec1e22e0&from=-31d&signature=e500551e536da2d06f518c1d9948eb4e7f123807 # MND # 10 # HSF weekly
@@ -41,7 +41,7 @@ where the entries are separted by ```#``` delimiters
 1. The source to collect the data from e.g. the link under "Export to scheduling tool" in indico
 2. Whether the entry is mandatory (MND) or optional (OPT). OPT will be ignored in case of problems
 3. The minutes to set the reminder in the local google calendar for the events
-4. A string for convenience to document which entries the link correspond to 
+4. A string for convenience to document which entries the link correspond to
 
 ## How to run it
 
@@ -53,7 +53,7 @@ python calmerge.py
 
 ### An entry in the local calendar was accidentally deleted
 
-Remove also the corresponding calendar entry in the "cache" calendar and re-run the script. Go to the ```calendar.cache``` file and remove the entry in the json corresponding to the calendar which contains the entry. The entry should re-appear. 
+Remove also the corresponding calendar entry in the "cache" calendar and re-run the script. Go to the ```calendar.cache``` file and remove the entry in the json corresponding to the calendar which contains the entry. The entry should re-appear.
 
 NB: The cache file contains entries a la {"calendarid": checksum}, where calendar id corresponds to the "ics" number in the indico url.
 
@@ -97,7 +97,7 @@ In order to write to a google calendar you need to setup oauth2 authentication. 
 2. Run ```python oauth2.py```
   - The script will ask you to call a URL, copy paste it to your favorite browser and follow the instructions there. The outcome should be a new URL like ```http://localhost/?code=<very long string>&scope=https://www.googleapis.com/auth/calendar```
   - Take the ```<very long string>``` from above and paste it into the script
-  - The script should return with a new json file a la 
+  - The script should return with a new json file a la
     ```
     {"_module": "oauth2client.client", "scopes": ["https://www.googleapis.com/auth/calendar"], "token_expiry": "2018-09-11T14:51:13Z", "id_token": null, "access_token": "<removed>", "token_uri": "https://accounts.google.com/o/oauth2/token", "invalid": false, "token_response": {"access_token": "<removed>", "scope": "https://www.googleapis.com/auth/calendar", "token_type": "Bearer", "expires_in": 3600, "refresh_token": "<removed>"}, "client_id": "<removed>.apps.googleusercontent.com", "token_info_uri": "https://www.googleapis.com/oauth2/v3/tokeninfo", "client_secret": "<removed>", "revoke_uri": "https://accounts.google.com/o/oauth2/revoke", "_class": "OAuth2Credentials", "refresh_token": "<removed>", "user_agent": null}
     ```
@@ -118,7 +118,7 @@ self.calendarids = {'all2': {'id': '<26alnums>@group.calendar.google.com'},  # n
                     'vrk2': {'id': '<26alnums>@group.calendar.google.com'}   # noqa: E501                                                                                                         
                             }
 ```
-4. Replace the string ```id``` of ```all2``` (```<26alnums>@group.calendar.google.com```) with the id of the "caching" calendar and the ```vrk2``` with the "visible" calendar id. 
+4. Replace the string ```id``` of ```all2``` (```<26alnums>@group.calendar.google.com```) with the id of the "caching" calendar and the ```vrk2``` with the "visible" calendar id.
 
 ### Dependencies
 
@@ -127,4 +127,3 @@ Please see the ```calmerge.py``` and ```oauth2.py``` scripts for python module d
 ***
 
 Stefan Roiser, [stefan.roiser@cern.ch](mailto:stefan.roiser@cern.ch)
-
