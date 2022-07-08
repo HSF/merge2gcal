@@ -1,0 +1,2 @@
+calids = {'all': '<25alnum>@group.calendar.google.com',
+          'vrk': '<25alnum>@group.calendar.google.com'}

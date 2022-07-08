@@ -32,6 +32,7 @@ from datetime import datetime, timedelta
 from hashlib import md5
 from optparse import OptionParser
 from configparser import ConfigParser
+from calids import calids
 
 # TODO
 # - check moved events from all to wrk and "rename" - currently just delete
@@ -93,8 +94,8 @@ class Calmerge:
 
         # alphabetically ordered
         self.calexts = ['all2', 'vrk2']
-        self.calendarids = {'all2': {'id': 'mh9up33b8s0m8ba6i4m3sanb08@group.calendar.google.com'},  # noqa: E501
-                            'vrk2': {'id': 'jd5bdhh5eq2sigqtvg6q3l8el8@group.calendar.google.com'}   # noqa: E501
+        self.calendarids = {'all2': {'id': calids['all']},
+                            'vrk2': {'id': calids['vrk']}
                             }
 
         self.calevtslist = []
@@ -355,7 +356,7 @@ Events Total/New: %d/%d""" % (stats['sumCals'], stats['totEvts'],
 
 
 def notify(title, subtitle, info_text, delay=0, sound=False, userinfo={}):
-    if platform.system() == 'Darwin':
+    if platform.system() == 'Darwin2':
         import objc
         import Foundation
         # import AppKit
