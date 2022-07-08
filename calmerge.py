@@ -83,8 +83,8 @@ class Calmerge:
             f = open('calendar.links')
             self.calendarlinks = f.readlines()
             f.close()
-        except e:  # NoOptionError:
-            print()
+        except Exception as e:  # NoOptionError:
+            print(e)
 
         self.calcache = {}
         f = open('calcache.json')
