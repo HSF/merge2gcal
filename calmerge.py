@@ -93,9 +93,9 @@ class Calmerge:
 
         # alphabetically ordered
         self.calexts = ['all2', 'vrk2']
-        self.calendarids = {'all2': {'id': 'hogv34jdnhbdle40ohvb1fgpt4@group.calendar.google.com'},  # noqa: E501
-                            'vrk2': {'id': 'e4v33e1a1drbncdle1n03ahpcs@group.calendar.google.com'}   # noqa: E501
-                            }
+        self.calendarids = {'all2': {'id': 'mh9up33b8s0m8ba6i4m3sanb08@group.calendar.google.com'},  # noqa: E501
+                            'vrk2': {'id': 'jd5bdhh5eq2sigqtvg6q3l8el8@group.calendar.google.com'}   # noqa: E501
+                           }
 
         self.calevtslist = []
         self.calevtslistids = {}
