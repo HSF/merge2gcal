@@ -133,7 +133,7 @@ class Calmerge:
         else:
             params['description'] = 'Event from %s to %s\n\n%s' % (
                 start, end, params['description'])
-            # https://developers.google.com/google-apps/calendar/concepts/events-calendars
+            # https://developers.google.com/google-apps/calendar/concepts/events-calendars # noqa: E501
             end += timedelta(days=1)
             params['start']['date'] = '%s-%s-%s' % (
                 start.year, start.month, start.day)
@@ -180,7 +180,7 @@ class Calmerge:
             # for x in calevtsdict['items'] ]
             self.calevtslistids[k] = [x['id'] for x in calevtsdict['items']]
             print('Google calendar %s items: %d' % (k,
-                                                    len(self.calevtslistids[k])))
+                                                    len(self.calevtslistids[k])))  # noqa: E501
             # print self.calevtslistids[k]
         # print self.calevtslistids
 
@@ -271,9 +271,13 @@ class Calmerge:
         events = []
         for component in ics.walk():
             if component.name == "VEVENT":
-                event = {key:component.get(key, None) for key in ['UID', 'SUMMARY', 'DESCRIPTION', 'LOCATION',
-                                                                  'URL']}
-                event.update({key:component.decoded(key) for key in ['DTSTART', 'DTEND']})
+                event = {key: component.get(key, None) for key in ['UID',
+                                                                   'SUMMARY',
+                                                                   'DESCRIPTION',  # noqa: E501
+                                                                   'LOCATION',
+                                                                   'URL']}
+                event.update({key: component.decoded(key) for key in ['DTSTART',
+                                                                      'DTEND']})
                 events.append(event)
                 idt = self.calIdTranslate(component.get('UID'))
                 for ext in self.calexts:
@@ -316,7 +320,7 @@ class Calmerge:
             if len(lline[0].strip()):
                 stats['sumCals'] += 1
                 name = lline[-1].strip()
-                rems = [int(x) for x in [x for x in lline[-2].split(',')] if len(x.strip())]
+                rems = [int(x) for x in [x for x in lline[-2].split(',')] if len(x.strip())]  # noqa: E501
                 url = lline[0].strip()
                 sys.stdout.write(name)
                 ics = self.downloadics(url)
