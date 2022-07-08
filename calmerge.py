@@ -327,7 +327,11 @@ class Calmerge:
                 if len(ics) == 0:
                     sys.stdout.write(', no events')
                     # sys.stdout.write(str(ics))
-                cat = url.split('/')[-1].split('.')[0]
+                cat = ''
+                if url.find('/category/') != -1:
+                    cat = url.split('/')[4]
+                else:
+                    cat = url.split('/')[-1].split('.')[0]
                 calhash = md5(str(ics).encode('utf-8')).hexdigest()
                 if self.calcache.get(cat) != calhash:
                     self.calcache[cat] = calhash
